@@ -88,6 +88,20 @@ def treinar_svm(descritores_todas_imagens, numero_descritores=4, gravar_svm=Fals
     # Criar SVM
     modelo_svm = svm.SVC(gamma=0.1, C=100)
 
+    '''
+    # Alterando parâmetro C
+    modelo_svm = svm.SVC(gamma=0.1, C=1)
+    modelo_svm = svm.SVC(gamma=0.1, C=50)    
+    
+    # Alterando parâmetro gamma
+    modelo_svm = svm.SVC(gamma=0.5, C=100)
+    modelo_svm = svm.SVC(gamma=1, C=100)
+    
+    # Alterando o grau da funcao
+    modelo_svm = svm.SVC(gamma=0.1, C=1, degree=6)
+    modelo_svm = svm.SVC(gamma=0.1, C=1, degree=10)
+    '''
+
     # Treinar SVM
     modelo_svm.fit(train_X, train_y)
 

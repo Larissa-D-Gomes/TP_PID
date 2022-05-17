@@ -85,10 +85,38 @@ def treinar_rede_neural(descritores_todas_imagens, numero_descritores=4, gravar_
 
     # Criar Rede Neural
     modelo_rede = tf.keras.models.Sequential()
+
     modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.relu)) #adiciona camada oculta
     modelo_rede.add(tf.keras.layers.Dense(4, activation=tf.nn.softmax)) #adiciona camada de saída
+    # Teste com mais neuronios
+    '''
+    modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.relu)) #adiciona camada oculta
+    modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.relu))  # adiciona camada oculta
+    modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.relu))  # adiciona camada oculta
+    # modelo_rede.add(tf.keras.layers.Dense(4, activation=tf.nn.softmax)) #adiciona camada de saída
+    '''
+
+    # Teste com diferentes funcoes
+    '''
+    modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.experimental))  # adiciona camada oculta
+    # modelo_rede.add(tf.keras.layers.Dense(42, activation=tf.nn.avg_pool))  # adiciona camada oculta
+    # modelo_rede.add(tf.keras.layers.Dense(4, activation=tf.nn.softmax))  # adiciona camada de saída
+    '''
+
+    # Teste diferentes optmizer
+    '''
+    modelo_rede.compile(optimizer="Ftrl", loss="sparse_categorical_crossentropy", metrics=['accuracy'])#compilar rede
+    # modelo_rede.compile(optimizer="NAdam", loss="sparse_categorical_crossentropy", metrics=['accuracy'])#compilar rede
+    '''
+
     modelo_rede.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=['accuracy'])#compilar rede
-    
+
+    # Teste diferentes epocas
+    '''
+    modelo_rede.fit(x=train_X, y=train_y, epochs=100)
+    #modelo_rede.fit(x=train_X, y=train_y, epochs=250)
+    '''
+
     # Treinar Rede Neural
     modelo_rede.fit(x=train_X, y=train_y, epochs=500)
 
