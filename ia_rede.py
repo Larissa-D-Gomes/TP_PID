@@ -43,7 +43,6 @@ def treinar_rede_neural(descritores_todas_imagens, numero_descritores=4, gravar_
         training_data.append(birad3[instance])
         training_data.append(birad4[instance])
 
-    training_data = np.array(training_data, dtype=object)
 
     # Separação do conjunto de teste (25 instâncias de cada birad)
     for instance in range(75, 100):
@@ -52,12 +51,15 @@ def treinar_rede_neural(descritores_todas_imagens, numero_descritores=4, gravar_
         test_data.append(birad3[instance])
         test_data.append(birad4[instance])
 
-    test_data = np.array(test_data, dtype=object)
-
 
     # Embaralhar os conjuntos para não ficar em ordem por Birad
     random.shuffle(training_data)
     random.shuffle(test_data)
+
+
+    # Converter para np.array
+    training_data = np.array(training_data, dtype=object)
+    test_data = np.array(test_data, dtype=object)
 
 
     # Separar descritores das classificações - Treino

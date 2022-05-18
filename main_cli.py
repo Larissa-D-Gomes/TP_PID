@@ -37,7 +37,8 @@ print ("SVM treinada e testada.")
 classe = ia_svm.classificar_svm(modelo_svm, descritores_uma_imagem, numero_descritores=4)
 print("Uma imagem classificada (SVM)")
 
-# Treinar uma Rede Neura (argumento numero_descritores Default)
+"""
+# Treinar uma Rede Neural (argumento numero_descritores Default)
 (modelo_rede, metricas) = ia_rede.treinar_rede_neural(descritores_todas_imagens=descritores_todas_imagens, numero_descritores=4, gravar_rede=False)
 print("Rede Neural treinada e testada.")
 
@@ -45,5 +46,6 @@ print("Rede Neural treinada e testada.")
 classe = ia_rede.classificar_rede(modelo_rede, descritores_uma_imagem, numero_descritores=4)
 print("Uma imagem classificada (Rede Neural)")
 
+"""
 print(metricas)
 print(classe)
