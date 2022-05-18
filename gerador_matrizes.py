@@ -50,7 +50,7 @@ def calcula_matrizes_varias_imagens(diretorio="./imagens", gravar_arquivo=False,
 
     # Gravar datatset
     if (gravar_arquivo):
-        output = open('dados\\dataset_matrizes.pkl', 'wb')
+        output = open('dados/dataset_matrizes.pkl', 'wb')
         pickle.dump(dataset, output)
 
     return dataset

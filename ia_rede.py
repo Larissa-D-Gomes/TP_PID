@@ -114,10 +114,10 @@ def treinar_rede_neural(descritores_todas_imagens, numero_descritores=4, gravar_
 
     # Gravar modelo
     if (gravar_rede):
-        output_rede = open('dados\\rede.pkl', 'wb')
+        output_rede = open('dados/rede.pkl', 'wb')
         pickle.dump(modelo_rede, output_rede)
 
-        output_metricas = open('dados\\metricas_rede.pkl', 'wb')
+        output_metricas = open('dados/metricas_rede.pkl', 'wb')
         pickle.dump(metricas, output_metricas)
 
     tempoFinal = time.time() - tempoInicial

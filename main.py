@@ -187,15 +187,15 @@ class main:
 
         # Populando a tabela com os dados dos descritores
         tabelaDeDescritores.insert(parent='',index='end',iid=0,text='',
-        values=('C1',descritores[0][0],descritores[0][1],descritores[0][2],descritores[0][3]))
+        values=('C1',descritores[0][0],descritores[0][1],descritores[0][2]))
         tabelaDeDescritores.insert(parent='',index='end',iid=1,text='',
-        values=('C2',descritores[1][0],descritores[1][1],descritores[1][2],descritores[1][3]))
+        values=('C2',descritores[1][0],descritores[1][1],descritores[1][2]))
         tabelaDeDescritores.insert(parent='',index='end',iid=2,text='',
-        values=('C4',descritores[2][0],descritores[2][1],descritores[2][2],descritores[2][3]))
+        values=('C4',descritores[2][0],descritores[2][1],descritores[2][2]))
         tabelaDeDescritores.insert(parent='',index='end',iid=3,text='',
-        values=('C8',descritores[3][0],descritores[3][1],descritores[3][2],descritores[3][3]))
+        values=('C8',descritores[3][0],descritores[3][1],descritores[3][2]))
         tabelaDeDescritores.insert(parent='',index='end',iid=4,text='',
-        values=('C16',descritores[4][0],descritores[4][1],descritores[4][2],descritores[4][3]))
+        values=('C16',descritores[4][0],descritores[4][1],descritores[4][2]))
 
         tabelaDeDescritores.pack()
         
@@ -221,14 +221,14 @@ class main:
     def obter_descritores_das_imagens(self, matrizesDeTodasAsImagens):
         try:
             # Tentar ler o arquivo de descritores caso esse exista
-            descritoresTodasAsImagens_arquivo = open("dados\\dataset.pkl", "rb")
+            descritoresTodasAsImagens_arquivo = open("dados/dataset.pkl", "rb")
             descritoresTodasAsImagens = np.array(pickle.load(descritoresTodasAsImagens_arquivo))
             descritoresTodasAsImagens_arquivo.close()
         except:
             # Caso o arquivo não exista, calcular os descritores do zero
             showinfo(message="Obtendo descritores...")
             tempoInicial = time.time()
-            descritoresTodasAsImagens = calcula_descritores_varias_imagens(matrizesDeTodasAsImagens)
+            descritoresTodasAsImagens = calcula_descritores_varias_imagens(matrizesDeTodasAsImagens, contraste=False)
             tempoFinal = time.time() - tempoInicial
             aviso = "Descritores calculados em {:.2f} segundos".format(tempoFinal)
             showinfo(message=aviso)
@@ -239,7 +239,7 @@ class main:
     def obter_matrizes_coocorrencia(self):
         try:
             # Tentar obter as matrizes de coocorrência do arquivo caso este exista
-            matrizesDeTodasAsImagens_arquivo = open("dados\\dataset_matrizes.pkl", "rb")
+            matrizesDeTodasAsImagens_arquivo = open("dados/dataset_matrizes.pkl", "rb")
             matrizesDeTodasAsImagens = np.array(pickle.load(matrizesDeTodasAsImagens_arquivo))
             matrizesDeTodasAsImagens_arquivo.close()
         except:
@@ -261,7 +261,7 @@ class main:
         descritoresTodasAsImagens = self.obter_descritores_das_imagens(matrizesDeTodasAsImagens)
         
         # Chamar o método para treinar a svm
-        [modelo, metricas] = treinar_svm(descritores_todas_imagens=descritoresTodasAsImagens, numero_descritores=4, gravar_svm=True)
+        [modelo, metricas] = treinar_svm(descritores_todas_imagens=descritoresTodasAsImagens, numero_descritores=3, gravar_svm=True)
 
         # salvar o modelo e as métricas obtidas
         self.modelo_svm = modelo
@@ -290,7 +290,7 @@ class main:
         descritoresTodasAsImagens = self.obter_descritores_das_imagens(matrizesDeTodasAsImagens)
         
         # Realizar o treino da rede neural
-        [modelo, metricas] = treinar_rede_neural(descritores_todas_imagens=descritoresTodasAsImagens, numero_descritores=4, gravar_rede=True)
+        [modelo, metricas] = treinar_rede_neural(descritores_todas_imagens=descritoresTodasAsImagens, numero_descritores=3, gravar_rede=True)
 
         # Salvar as métricas e o modelo obtido
         self.modelo_rede = modelo
@@ -325,7 +325,7 @@ class main:
 
     def classificar_imagem_svm(self):
         # Classificar a imagem exibida no canvas utilizando a svm
-        classeDaImagem = classificar_svm(modelo_svm=self.modelo_svm, descritores=self.descritoresImagemExibida, numero_descritores=4)
+        classeDaImagem = classificar_svm(modelo_svm=self.modelo_svm, descritores=self.descritoresImagemExibida, numero_descritores=3)
         # Exibir o resultado na tela
         mensagem = "A imagem pertence à classe de BIRAD " + str(classeDaImagem)
         showinfo(message=mensagem)
@@ -333,7 +333,7 @@ class main:
 
     def classificar_imagem_rede_neural(self):
         # Classificar a imagem exibida no canvas utilizando a rede neural
-        classeDaImagem = classificar_rede(modelo_rede=self.modelo_rede, descritores=self.descritoresImagemExibida, numero_descritores=4)
+        classeDaImagem = classificar_rede(modelo_rede=self.modelo_rede, descritores=self.descritoresImagemExibida, numero_descritores=3)
         # Exibir o resultado na tela
         mensagem = "A imagem pertence à classe de BIRAD " + str(classeDaImagem)
         showinfo(message=mensagem)
